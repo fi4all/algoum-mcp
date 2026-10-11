@@ -1,8 +1,8 @@
-name: algoum
+name: algoum-mcp
 version: 1.0.0
 description: SEC EDGAR insider trades (Form 4/5), 8-K events and 13F holdings for your AI assistant
 author: fi4all
-repository: https://github.com/fi4all/algoum_mcp
+repository: https://github.com/fi4all/algoum-mcp
 license: MIT
 keywords:
   - mcp
@@ -13,7 +13,7 @@ keywords:
   - 8-k
 dependencies:
   mcp:
-    - name: algoum
+    - name: algoum-mcp
       registry: false
       transport: http
       url: https://api.algoum.de/v1/mcp
@@ -30,7 +30,7 @@ marketplace:
   outputs:
     claude: {}
   packages:
-    - name: algoum
+    - name: algoum-mcp
       description: SEC EDGAR insider trades, 8-K events and 13F holdings for your AI assistant
       source: ./
       version: 1.0.0

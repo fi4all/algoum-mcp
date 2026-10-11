@@ -1,4 +1,4 @@
-# algoum for AI assistants (MCP)
+# algoum-mcp for AI assistants (MCP)
 
 Let your AI assistant query US financial regulatory data from SEC EDGAR – insider trades
 (Form 4/5), material events (8-K) and institutional holdings (13F) – through the
@@ -114,7 +114,7 @@ all projects). VS Code asks for the key on first start and does not store it in 
     { "type": "promptString", "id": "algoum-key", "description": "algoum API key", "password": true }
   ],
   "servers": {
-    "algoum": {
+    "algoum-mcp": {
       "type": "http",
       "url": "https://api.algoum.de/v1/mcp",
       "headers": { "Authorization": "Bearer ${input:algoum-key}" }
@@ -123,7 +123,7 @@ all projects). VS Code asks for the key on first start and does not store it in 
 }
 ```
 
-Switch the chat to agent mode and check in the tools list that the `algoum` tools are enabled.
+Switch the chat to agent mode and check in the tools list that the `algoum-mcp` tools are enabled.
 
 #### IntelliJ IDEA and other JetBrains IDEs
 
@@ -138,7 +138,7 @@ Both options work in every JetBrains IDE. Use the one for the assistant you have
    ```json
    {
      "servers": {
-       "algoum": {
+       "algoum-mcp": {
          "type": "http",
          "url": "https://api.algoum.de/v1/mcp",
          "headers": { "Authorization": "Bearer <your key>" }
@@ -147,7 +147,7 @@ Both options work in every JetBrains IDE. Use the one for the assistant you have
    }
    ```
 
-3. Open the Copilot chat, switch to agent mode and check that the `algoum` tools are listed.
+3. Open the Copilot chat, switch to agent mode and check that the `algoum-mcp` tools are listed.
 
 **JetBrains AI Assistant**
 
@@ -157,7 +157,7 @@ Both options work in every JetBrains IDE. Use the one for the assistant you have
    ```json
    {
      "mcpServers": {
-       "algoum": {
+       "algoum-mcp": {
          "url": "https://api.algoum.de/v1/mcp",
          "headers": { "Authorization": "Bearer <your key>" }
        }
@@ -172,7 +172,7 @@ The key stays in the IDE's own configuration on your machine.
 #### Claude Code
 
 ```sh
-claude mcp add --transport http algoum https://api.algoum.de/v1/mcp \
+claude mcp add --transport http algoum-mcp https://api.algoum.de/v1/mcp \
   --header "Authorization: Bearer $ALGOUM_API_KEY"
 ```
 
@@ -186,7 +186,7 @@ read from the environment variable you exported in step 1, so it does not end up
 ```json
 {
   "mcpServers": {
-    "algoum": {
+    "algoum-mcp": {
       "url": "https://api.algoum.de/v1/mcp",
       "headers": { "Authorization": "Bearer ${env:ALGOUM_API_KEY}" }
     }
@@ -195,7 +195,7 @@ read from the environment variable you exported in step 1, so it does not end up
 ```
 
 Start Cursor from a shell in which `ALGOUM_API_KEY` is set, then check **Settings → MCP** that the
-`algoum` server is connected.
+`algoum-mcp` server is connected.
 
 #### GitHub Copilot CLI
 
@@ -204,7 +204,7 @@ Add the server to `~/.copilot/mcp-config.json`:
 ```json
 {
   "mcpServers": {
-    "algoum": {
+    "algoum-mcp": {
       "type": "http",
       "url": "https://api.algoum.de/v1/mcp",
       "headers": { "Authorization": "Bearer <your key>" },
@@ -214,7 +214,7 @@ Add the server to `~/.copilot/mcp-config.json`:
 }
 ```
 
-Run `/mcp` in the CLI to see `algoum` connected. The file stays on your machine.
+Run `/mcp` in the CLI to see `algoum-mcp` connected. The file stays on your machine.
 
 #### APM (Agent Package Manager)
 
@@ -223,8 +223,8 @@ your project. It reads the key from the environment variable you exported in ste
 does not end up in any file:
 
 ```sh
-apm marketplace add fi4all/algoum_mcp
-apm install algoum@algoum-marketplace --target vscode
+apm marketplace add fi4all/algoum-mcp
+apm install algoum-mcp@algoum-marketplace --target vscode
 ```
 
 Replace `vscode` with your assistant, for example `copilot`, `claude` or `cursor`. `apm targets`

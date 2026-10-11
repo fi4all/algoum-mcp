@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "algoum",
+      "name": "algoum-mcp",
       "description": "SEC EDGAR insider trades, 8-K events and 13F holdings for your AI assistant",
       "version": "1.0.0",
       "tags": [
