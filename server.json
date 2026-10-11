@@ -1,0 +1,34 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fi4all/algoum-mcp",
+  "title": "algoum-mcp",
+  "description": "SEC EDGAR insider trades (Form 4/5), 8-K events and 13F holdings as clean JSON.",
+  "version": "1.0.0",
+  "websiteUrl": "https://algoum.de/",
+  "repository": {
+    "url": "https://github.com/fi4all/algoum-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.algoum.de/v1/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Your algoum API key as a bearer token. Create it in the dashboard of the algoum portal (https://algoum.de/).",
+          "isRequired": true,
+          "isSecret": true,
+          "value": "Bearer {api_key}",
+          "variables": {
+            "api_key": {
+              "description": "Your algoum API key",
+              "isRequired": true,
+              "isSecret": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+name: MCP Registry
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Publish server.json, or set the status of an existing entry
+        required: true
+        default: publish
+        type: choice
+        options: [publish, active, deprecated, deleted]
+      server:
+        description: Server name for a status change; defaults to the name in server.json
+        required: false
+      version:
+        description: Version for a status change; leave empty to apply to all versions
+        required: false
+      message:
+        description: Reason for a status change
+        required: false
+
+jobs:
+  registry:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      ACTION: ${{ inputs.action || 'publish' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
+
+      - name: Validate server.json
+        if: env.ACTION == 'publish'
+        run: ./mcp-publisher validate
+
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish server
+        if: env.ACTION == 'publish'
+        run: ./mcp-publisher publish
+
+      - name: Update server status
+        if: env.ACTION != 'publish'
+        env:
+          SERVER: ${{ inputs.server }}
+          VERSION: ${{ inputs.version }}
+          MESSAGE: ${{ inputs.message }}
+        run: |
+          SERVER=${SERVER:-$(jq -r .name server.json)}
+          args=(--status "$ACTION")
+          if [ -n "$MESSAGE" ]; then
+            args+=(--message "$MESSAGE")
+          fi
+          if [ -z "$VERSION" ]; then
+            args+=(--all-versions)
+          fi
+          ./mcp-publisher status "${args[@]}" "$SERVER" ${VERSION:+"$VERSION"} <<< "y"
