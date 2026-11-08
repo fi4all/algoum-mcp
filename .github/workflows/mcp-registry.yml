@@ -50,20 +50,7 @@ jobs:
         run: ./mcp-publisher validate
 
       - name: Authenticate to MCP Registry
-        env:
-          SERVER: ${{ inputs.server }}
-          MCP_PRIVATE_KEY: ${{ secrets.MCP_PRIVATE_KEY }}
-        run: |
-          # Publishing always targets server.json; a status change may target another server
-          if [ "$ACTION" = "publish" ] || [ -z "$SERVER" ]; then
-            SERVER=$(jq -r .name server.json)
-          fi
-          # The namespace decides the login: io.github.* proves the org via OIDC, everything else the domain via the DNS TXT record on algoum.de
-          if [[ "$SERVER" == io.github.* ]]; then
-            ./mcp-publisher login github-oidc
-          else
-            ./mcp-publisher login dns --domain algoum.de --private-key "$MCP_PRIVATE_KEY"
-          fi
+        run: ./mcp-publisher login github-oidc
 
       - name: Publish server
         if: env.ACTION == 'publish'

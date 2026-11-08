@@ -235,5 +235,5 @@ lists all supported ones. Without `--target`, APM needs an existing assistant fo
 - [algoum portal](https://algoum.de/)
 - [API reference](https://api.algoum.de/v1/docs/)
 - [MCP Registry entry](https://registry.modelcontextprotocol.io/?q=algoum)
-- [Glama listing](https://glama.ai/mcp/connectors/de.algoum.api/algoum)
+- [Glama listing](https://glama.ai/mcp/connectors/io.github.fi4all/algoum-mcp)
 - [Contact us](https://algoum.de/contact) – questions, feedback and anything you would like to see next
