@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.fi4all/algoum-mcp",
+  "name": "de.algoum.api/algoum-mcp",
   "title": "algoum-mcp",
   "description": "SEC EDGAR insider trades (Form 4/5), 8-K events and 13F holdings as clean JSON.",
   "version": "1.0.0",
